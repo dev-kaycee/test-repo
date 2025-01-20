@@ -1,4 +1,4 @@
-name: Laravel
+name: Laravel Multi-Repo Push
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -28,8 +27,34 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    # - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-    #   env:
-    #     DB_CONNECTION: sqlite
-    #     DB_DATABASE: database/database.sqlite
-    #   # run: php artisan test
+
+  push-to-repos:
+    needs: laravel-tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Push to Repo 1
+      env:
+        TARGET_TOKEN: ${{ secrets.REPO1_TOKEN }}
+      run: |
+        git remote add repo1 https://oauth2:${TARGET_TOKEN}@github.com/username/repo1.git
+        git push repo1 main
+
+    - name: Push to Repo 2
+      env:
+        TARGET_TOKEN: ${{ secrets.REPO2_TOKEN }}
+      run: |
+        git remote add repo2 https://oauth2:${TARGET_TOKEN}@github.com/username/repo2.git
+        git push repo2 main
+
+    - name: Push to Repo 3
+      env:
+        TARGET_TOKEN: ${{ secrets.REPO3_TOKEN }}
+      run: |
+        git remote add repo3 https://oauth2:${TARGET_TOKEN}@github.com/username/repo3.git
+        git push repo3 main
