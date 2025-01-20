@@ -42,19 +42,19 @@ jobs:
       env:
         TARGET_TOKEN: ${{ secrets.REPO1_TOKEN }}
       run: |
-        git remote add repo1 https://oauth2:${TARGET_TOKEN}@github.com/username/repo1.git
+        git remote add repo1 https://oauth2:${TARGET_TOKEN}@https://github.com/dev-kaycee/test-1.git
         git push repo1 main
 
     - name: Push to Repo 2
       env:
         TARGET_TOKEN: ${{ secrets.REPO2_TOKEN }}
       run: |
-        git remote add repo2 https://oauth2:${TARGET_TOKEN}@github.com/username/repo2.git
+        git remote add repo2 https://oauth2:${TARGET_TOKEN}@ghttps://github.com/dev-kaycee/test-2.git
         git push repo2 main
 
     - name: Push to Repo 3
       env:
         TARGET_TOKEN: ${{ secrets.REPO3_TOKEN }}
       run: |
-        git remote add repo3 https://oauth2:${TARGET_TOKEN}@github.com/username/repo3.git
+        git remote add repo3 https://oauth2:${TARGET_TOKEN}@https://github.com/dev-kaycee/test-3.git
         git push repo3 main
