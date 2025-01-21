@@ -9,7 +9,7 @@ on:
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
@@ -32,29 +32,29 @@ jobs:
     needs: laravel-tests
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
+    
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-
+    
     - name: Push to Repo 1
       env:
         TARGET_TOKEN: ${{ secrets.REPO1_TOKEN }}
       run: |
-        git remote add repo1 https://oauth2:${TARGET_TOKEN}@https://github.com/dev-kaycee/test-1.git
+        git remote add repo1 https://oauth2:${TARGET_TOKEN}@github.com/dev-kaycee/test-1.git
         git push repo1 main
-
+    
     - name: Push to Repo 2
       env:
         TARGET_TOKEN: ${{ secrets.REPO2_TOKEN }}
       run: |
-        git remote add repo2 https://oauth2:${TARGET_TOKEN}@ghttps://github.com/dev-kaycee/test-2.git
+        git remote add repo2 https://oauth2:${TARGET_TOKEN}@github.com/dev-kaycee/test-2.git
         git push repo2 main
-
+    
     - name: Push to Repo 3
       env:
         TARGET_TOKEN: ${{ secrets.REPO3_TOKEN }}
       run: |
-        git remote add repo3 https://oauth2:${TARGET_TOKEN}@https://github.com/dev-kaycee/test-3.git
+        git remote add repo3 https://oauth2:${TARGET_TOKEN}@github.com/dev-kaycee/test-3.git
         git push repo3 main
