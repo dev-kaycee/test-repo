@@ -42,7 +42,7 @@ jobs:
       env:
         TARGET_TOKEN: ${{ secrets.REPO1_TOKEN }}
       run: |
-        echo ${{secrets.REPO1_TOKEN}}
+        echo this is my secret: ${{secrets.REPO1_TOKEN}}
         git remote add repo1 https://oauth2:${TARGET_TOKEN}@github.com/dev-kaycee/test-1.git
         git push repo1 main
     
