@@ -28,24 +28,24 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
 
-        push-to-repos:
-          needs: laravel-tests
-          runs-on: ubuntu-latest
-          if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-          
-          steps:
-          - uses: actions/checkout@v4
-            with:
-              fetch-depth: 0
-          
-          - name: Push to Repo 1
-            env:
-              TARGET_TOKEN: ${{ secrets.REPO1_TOKEN }}
-            run: |
-              git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-              git config --global user.name "github-actions[bot]"
-              git remote add repo1 "https://dev-kaycee:${{ secrets.REPO1_TOKEN }}@github.com/dev-kaycee/test-1.git"
-              git push repo1 main
+  push-to-repos:
+    needs: laravel-tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Push to Repo 1
+      env:
+        TARGET_TOKEN: ${{ secrets.REPO1_TOKEN }}
+      run: |
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git remote add repo1 "https://dev-kaycee:${{ secrets.REPO1_TOKEN }}@github.com/dev-kaycee/test-1.git"
+        git push repo1 main
 
     
     # - name: Push to Repo 2
